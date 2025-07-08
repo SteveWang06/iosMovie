@@ -16,7 +16,7 @@ struct ContentView: View {
             case .loading:
                 SplashView()
             case .loggedIn:
-                HomeView()
+                MainTabView()
                     .environmentObject(appState)
             case .loggedOut:
                 LoginView()
