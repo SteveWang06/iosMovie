@@ -8,11 +8,37 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var viewModel = HomeViewModel()
+    @EnvironmentObject private var appState: AppState
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack{
+                Button("Logout") {
+                    appState.logout()
+                }
+                .foregroundColor(.red)
+                
+                ScrollView {
+                    LazyVStack {
+                        ForEach(viewModel.movies) { movie in
+                            MovieCardView(movie: movie)
+                                .padding(.horizontal)
+                        }
+                    }
+                }
+
+            }
+            
+            .navigationTitle("Popular Movies")
+        }
+        .onAppear {
+            viewModel.fetchMovies()
+        }
     }
 }
 
 #Preview {
     HomeView()
 }
+
