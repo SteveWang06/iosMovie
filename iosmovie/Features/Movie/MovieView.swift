@@ -9,9 +9,13 @@ import SwiftUI
 
 struct MovieView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            Text("Movie View")
+                .navigationTitle("Movies")
+        }
     }
 }
+
 
 #Preview {
     MovieView()

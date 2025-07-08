@@ -8,10 +8,20 @@
 import SwiftUI
 
 struct AccountView: View {
+    
+    @EnvironmentObject private var appState: AppState
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            Button("Logout") {
+                appState.logout()
+            }
+            .foregroundColor(.red)
+            .navigationTitle("Account")
+        }
     }
 }
+
 
 #Preview {
     AccountView()
