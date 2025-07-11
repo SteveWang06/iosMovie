@@ -9,17 +9,21 @@
 
 import Foundation
 
+
 struct NetworkHelper {
     
-    // Tạo URLRequest chuẩn cho GET
+    // Get token from Keychain
+    private static var token: String? {
+        TokenManager.getToken()
+    }
+
     static func makeAuthorizedGETRequest(url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         addCommonHeaders(to: &request)
         return request
     }
-    
-    // URLRequest for POST, PUT, DELETE
+
     static func makeAuthorizedRequest(
         url: URL,
         method: String,
@@ -28,27 +32,33 @@ struct NetworkHelper {
         var request = URLRequest(url: url)
         request.httpMethod = method
         addCommonHeaders(to: &request)
-        
+
         if let jsonBody = jsonBody {
             do {
                 let data = try JSONSerialization.data(withJSONObject: jsonBody)
                 request.httpBody = data
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             } catch {
-                print("Failed to serialize JSON body: \(error.localizedDescription)")
+                print("Failed to serialize JSON body: \(error)")
             }
         }
-        
+
         return request
     }
-    
-   
+
     private static func addCommonHeaders(to request: inout URLRequest) {
         request.timeoutInterval = 10
         request.setValue("application/json", forHTTPHeaderField: "accept")
-        request.setValue(APIConstants.bearerToken, forHTTPHeaderField: "Authorization")
+        
+        
+        if let token = token {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            print("Warning: No token found")
+        }
     }
 }
+
 
 
 // How to use

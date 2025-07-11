@@ -35,6 +35,7 @@ class AppState: ObservableObject {
     }
 
     func logout() {
+        TokenManager.deleteToken()
         authStatus = .loggedOut
     }
 }
