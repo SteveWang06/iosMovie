@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct SelectedGenreView: View {
+    let genre: Genre
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Genre: \(genre.name)")
+            .padding(.horizontal)
+            .foregroundColor(.blue)
     }
 }
 
+
 #Preview {
-    SelectedGenreView()
+    let sampleGenre = Genre(id: 28, name: "Action")
+    SelectedGenreView(genre: sampleGenre)
 }
+

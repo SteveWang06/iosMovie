@@ -8,11 +8,34 @@
 import SwiftUI
 
 struct MovieListView: View {
+    let genre: Genre
+    @StateObject private var movieListViewModel = MovieListViewModel()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group {
+            if movieListViewModel.movies.isEmpty {
+                ProgressView("Loading movies...")
+                    .frame(maxWidth: .infinity)
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(movieListViewModel.movies) { movie in
+                            MovieCardView(movie: movie)
+                        }
+                    }
+                    .padding(.top)
+                }
+            }
+        }
+        .task(id: genre.id) {
+            
+            await movieListViewModel.loadMovies(forGenreId: genre.id)
+        }
     }
 }
 
+
 #Preview {
-    MovieListView()
+    MovieListView(genre: Genre(id: 28, name: "Action"))
 }
+
