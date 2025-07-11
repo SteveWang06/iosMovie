@@ -8,10 +8,28 @@
 import SwiftUI
 
 struct GenreListView: View {
+    @StateObject private var viewModel = MovieGenreViewModel()
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(viewModel.genres) { genre in
+            Text(genre.name)
+        }
+        .task {
+            await viewModel.loadGenres()
+        }
+        .overlay {
+            if let error = viewModel.errorMessage {
+                Text(error)
+                    .foregroundColor(.red)
+                    .padding()
+            }
+        }
     }
 }
+
+
+
+
 
 #Preview {
     GenreListView()
