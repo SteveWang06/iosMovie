@@ -14,6 +14,7 @@ class LoginViewModel: ObservableObject {
 
     func login(appState: AppState) {
         if LoginModel.authenticate(email: email, password: password) {
+            TokenManager.saveToken(APIConstants.accessToken)
             appState.login()
         } else {
             errorMessage = "Email hoặc mật khẩu không đúng"

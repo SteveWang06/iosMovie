@@ -48,6 +48,9 @@ struct LoginView: View {
             .cornerRadius(8)
             
             Spacer()
+            
+            SocialLoginButtons()
+            
             // MARK: - Register Button
             Button("Register") {
                 showRegister = true
