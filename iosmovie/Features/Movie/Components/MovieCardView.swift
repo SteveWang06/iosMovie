@@ -11,47 +11,49 @@ struct MovieCardView: View {
     let movie: Movie
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            if let url = movie.posterURL {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFill()
+        NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+            VStack(alignment: .leading, spacing: 10) {
+                if let url = movie.posterURL {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200)
+                            .clipped()
+                    } placeholder: {
+                        ZStack {
+                            Color.gray.opacity(0.2)
+                            ProgressView()
+                        }
                         .frame(height: 200)
-                        .clipped()
-                } placeholder: {
-                    ZStack {
-                        Color.gray.opacity(0.2)
-                        ProgressView()
+                        .cornerRadius(8)
                     }
-                    .frame(height: 200)
-                    .cornerRadius(8)
+                    .cornerRadius(12)
                 }
-                .cornerRadius(12)
+                
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(movie.title)
+                        .font(.headline)
+                        .lineLimit(2)
+                    
+                    Text("⭐️ \(movie.rating, specifier: "%.1f")")
+                        .font(.subheadline)
+                        .foregroundColor(.orange)
+                    
+                    Text(movie.overview)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .lineLimit(3)
+                }
+                .padding(.horizontal, 8)
+                .padding(.bottom, 8)
             }
-
-            VStack(alignment: .leading, spacing: 6) {
-                Text(movie.title)
-                    .font(.headline)
-                    .lineLimit(2)
-
-                Text("⭐️ \(movie.rating, specifier: "%.1f")")
-                    .font(.subheadline)
-                    .foregroundColor(.orange)
-
-                Text(movie.overview)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .lineLimit(3)
-            }
-            .padding(.horizontal, 8)
-            .padding(.bottom, 8)
+            .background(Color(.systemBackground))
+            .cornerRadius(16)
+            .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 4)
+            .padding(.horizontal)
+            .padding(.vertical, 4)
         }
-        .background(Color(.systemBackground))
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 4)
-        .padding(.horizontal)
-        .padding(.vertical, 4)
     }
 }
 
