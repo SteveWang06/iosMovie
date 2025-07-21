@@ -8,11 +8,38 @@
 import SwiftUI
 
 struct MoviePosterView: View {
+    let imageURL: URL?
+
+    @ViewBuilder
+    private func imageContent(phase: AsyncImagePhase) -> some View {
+        switch phase {
+        case .empty:
+            Color.gray.opacity(0.3)
+        case .success(let image):
+            image
+                .resizable()
+                .scaledToFill()
+                .clipped()
+        case .failure:
+            Image(systemName: "photo")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(.gray)
+        @unknown default:
+            EmptyView()
+        }
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        AsyncImage(url: imageURL, content: imageContent)
+            .frame(height: 300)
+            .frame(maxWidth: .infinity)
+            .cornerRadius(12)
     }
 }
 
+
+
 #Preview {
-    MoviePosterView()
+    MoviePosterView(imageURL: nil)
 }

@@ -28,14 +28,12 @@ class MovieListViewModel: ObservableObject {
             return
         }
 
-        let request = NetworkHelper.makeAuthorizedGETRequest(url: url)
-
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decoded = try JSONDecoder().decode(MovieListResponse.self, from: data)
+            let decoded: MovieListResponse = try await APIService.shared.fetch(url: url, type: MovieListResponse.self)
             self.movies = decoded.results
         } catch {
             errorMessage = "Error loading movies: \(error.localizedDescription)"
         }
     }
 }
+

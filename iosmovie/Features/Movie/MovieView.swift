@@ -22,21 +22,11 @@ struct MovieView: View {
                     
                     Spacer()
                     
-                    Menu {
-                        if genreViewModel.genres.isEmpty {
-                            Text("Loading...").foregroundColor(.gray)
-                        } else {
-                            ForEach(genreViewModel.genres) { genre in
-                                Button(genre.name) {
-                                    selectedGenre = genre
-                                }
-                            }
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .imageScale(.large)
-                            .padding(.horizontal)
-                            .foregroundColor(.black)
+                    GenreMenuView(
+                        selectedGenre: $selectedGenre,
+                        genreViewModel: genreViewModel
+                    ) { genre in
+                        selectedGenre = genre
                     }
                 }
                 .padding([.horizontal, .top])
@@ -48,11 +38,10 @@ struct MovieView: View {
                         .padding(.horizontal)
                 }
                 
-                
                 if let genre = selectedGenre {
                     MovieListView(genre: genre)
                 } else {
-                    Text("Please select a genre")
+                    Text("Loading...")
                         .foregroundColor(.gray)
                         .padding(.horizontal)
                 }
@@ -68,10 +57,6 @@ struct MovieView: View {
         }
     }
 }
-
-
-
-
 
 
 #Preview {
