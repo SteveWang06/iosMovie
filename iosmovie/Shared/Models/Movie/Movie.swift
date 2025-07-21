@@ -21,10 +21,11 @@ struct Movie: Identifiable, Decodable {
         case rating = "vote_average"
     }
 
-    // Tạo computed property để lấy URL poster đầy đủ
-    var posterURL: URL? {
-        guard let posterPath = posterPath else { return nil }
-        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
-    }
+    
 }
 
+extension Movie {
+    var posterURL: URL? {
+        NetworkHelper.getImageURL(path: posterPath)
+    }
+}

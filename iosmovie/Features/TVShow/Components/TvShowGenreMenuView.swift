@@ -1,15 +1,15 @@
 //
-//  GenreMenuView.swift
+//  TvShowGenreMenuView.swift
 //  iosmovie
 //
-//  Created by Nguyen Thanh phuoc on 2025/7/9.
+//  Created by Nguyen Thanh phuoc on 2025/7/21.
 //
 
 import SwiftUI
 
-struct GenreMenuView: View {
-    @Binding var selectedGenre: Genre? 
-    @ObservedObject var genreViewModel: MovieGenreViewModel
+struct TvShowGenreMenuView: View {
+    @Binding var selectedGenre: Genre?
+    @ObservedObject var genreViewModel: TvShowGenreViewModel
     let onSelect: (Genre) -> Void
 
     var body: some View {
@@ -34,12 +34,12 @@ struct GenreMenuView: View {
 
 
 
-struct GenreMenuView_Previews: PreviewProvider {
-    @State static var selectedGenre: Genre? = Genre(id: 28, name: "Action")
-    static var genreViewModel = MovieGenreViewModel()
+struct TvShowGenreMenuView_Previews: PreviewProvider {
+    @State static var selectedGenre: Genre? = Genre(id: 10759, name: "Action & Adventure")
+    static var genreViewModel = TvShowGenreViewModel()
 
     static var previews: some View {
-        GenreMenuView(
+        TvShowGenreMenuView(
             selectedGenre: $selectedGenre,
             genreViewModel: genreViewModel
         ) { genre in

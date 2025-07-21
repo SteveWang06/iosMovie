@@ -29,14 +29,13 @@ class MovieGenreViewModel: ObservableObject {
             return
         }
 
-        let request = NetworkHelper.makeAuthorizedGETRequest(url: url)
-
         do {
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let decoded = try JSONDecoder().decode(MovieGenreListResponse.self, from: data)
+            let decoded: MovieGenreListResponse = try await APIService.shared.fetch(url: url, type: MovieGenreListResponse.self)
             self.genres = decoded.genres
+            
         } catch {
             errorMessage = "Error loading genres: \(error.localizedDescription)"
         }
     }
 }
+

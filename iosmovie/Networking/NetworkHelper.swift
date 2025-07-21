@@ -57,6 +57,11 @@ struct NetworkHelper {
             print("Warning: No token found")
         }
     }
+    
+    static func getImageURL(path: String?) -> URL? {
+            guard let path = path else { return nil }
+            return URL(string: "https://image.tmdb.org/t/p/w500\(path)")
+        }
 }
 
 
