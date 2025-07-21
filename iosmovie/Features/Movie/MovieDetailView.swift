@@ -1,18 +1,18 @@
 //
-//  GenreMenuView.swift
+//  MovieDetailView.swift
 //  iosmovie
 //
-//  Created by Nguyen Thanh phuoc on 2025/7/21.
+//  Created by Nguyen Thanh phuoc on 2025/7/19.
 //
 
 import SwiftUI
 
-struct GenreMenuView: View {
+struct MovieDetailView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    GenreMenuView()
+    MovieDetailView()
 }
